@@ -1,0 +1,11 @@
+[project]
+name = "rag-pdf-app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.136.1",
+    "unicorn>=2.1.4",
+    "uvicorn>=0.46.0",
+]
