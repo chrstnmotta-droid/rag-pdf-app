@@ -12,8 +12,8 @@ def hello(name: str):
 #Doel Een pdf kunnen opsturen naar API (software) en tekst extracteren 
 
 # Pseudocode
-# 1. Ontvang PDF op POST (data receiver for API)
-# 2. UploadFile om de files daadwerkelijk te uploaden naar api
+# 1. Ontvang PDF op POST (data receiver for API) done
+# 2. UploadFile om de files daadwerkelijk te uploaden naar api 
 # 3. Specifieer type data (tekst)
 # 4. Open pdf 
 # 5. Parse pdf 
@@ -21,18 +21,14 @@ def hello(name: str):
 # 7. Extract de tekst 
 # 8. Convert extracted to JSON
 
-def extract_pdf(filename):
-    reader = PdfReader(str(filename))
-    pages = reader.pages[:]
-    for page in pages:
+def extract_pdf(file_object):
+    reader = PdfReader(file_object)
+    pdf_text = ""
+    for page in reader.pages:
         pdf_text += page.extract_text()
     return pdf_text
    
-@app.post("/files/")
-async def create_file(file: Annotated[bytes, File()]):
-    return {"file_size": len(file)}
-
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile):
-    extract_pdf(file)
-    return {"filename": json.dumps(file.filename)}
+    text = extract_pdf(file.file)
+    return {"filename": file.filename, "text": text}
