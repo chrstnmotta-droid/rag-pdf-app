@@ -1,7 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from typing import Annotated
 from pypdf import PdfReader
-import json
 
 app = FastAPI()
 
@@ -9,26 +8,34 @@ app = FastAPI()
 def hello(name: str):
     return {"message": f"Hello {name}"}
 
-#Doel Een pdf kunnen opsturen naar API (software) en tekst extracteren 
-
-# Pseudocode
-# 1. Ontvang PDF op POST (data receiver for API) done
-# 2. UploadFile om de files daadwerkelijk te uploaden naar api 
-# 3. Specifieer type data (tekst)
-# 4. Open pdf 
-# 5. Parse pdf 
-# 6. Loop door de paginas
-# 7. Extract de tekst 
-# 8. Convert extracted to JSON
-
+#Let PDF's be uploaded via api and text extracted from pdf
 def extract_pdf(file_object):
     reader = PdfReader(file_object)
     pdf_text = ""
     for page in reader.pages:
         pdf_text += page.extract_text()
     return pdf_text
-   
+
+def chunk_text(text: str, chunk_size: int = 400, overlap: int = 80):
+    chunks = []
+    start = 0
+    while start < len(text):
+        chunk =text[start: start + chunk_size]
+        if chunk:
+            chunks.append()
+        start += chunk_size - overlap 
+    return chunks
+
+#Connect via api
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile):
     text = extract_pdf(file.file)
-    return {"filename": file.filename, "text": text}
+    chunks = chunk_text(text)
+    return {
+        "filename": file.filename, 
+        "num_chunks": len(chunks),
+        "first_chunk": chunks[0] if chunks else "",
+        "last_chunk": chunks[-1] if chunks else ""
+            }
+
+
