@@ -20,9 +20,9 @@ def chunk_text(text: str, chunk_size: int = 400, overlap: int = 80):
     chunks = []
     start = 0
     while start < len(text):
-        chunk =text[start: start + chunk_size]
+        chunk = text[start: start + chunk_size]
         if chunk:
-            chunks.append()
+            chunks.append(chunk)
         start += chunk_size - overlap 
     return chunks
 
