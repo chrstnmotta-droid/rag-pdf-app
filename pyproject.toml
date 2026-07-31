@@ -6,8 +6,11 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.136.1",
+    "numpy",
     "pypdf>=6.11.0",
     "python-multipart>=0.0.29",
+    "scikit-learn",
+    "sentence-transformers",
     "unicorn>=2.1.4",
     "uvicorn>=0.46.0",
 ]

@@ -1,0 +1,274 @@
+// Golden Set
+
+// 25 questions(15 facts, 5 synthese (multiple passages), 5 unanswered questions 
+
+{
+    "id": "q001",
+    "question": "Give a real-world example that shows that arbitrariness is hard to deal with in machine learning",
+    "expected_answer": "An automated diagnostic system appeared to diagnose pneumonia successfully from lung scans, but had actually learned a shortcut: images from the ambulance's portable scanner were stamped PORTABLE, and pneumonia patients were more likely to arrive by ambulance. The model recognized the stamp, not the disease, so it did not generalize beyond the hospital it was trained in.",
+    "source_doc": "Creel_Helman_2022.pdf",
+    "source_page": 10,
+    "gold_chunk": "Its apparent success did not generalize beyond the hospital in which it was trained because, as it turned out, all it",
+    "type": "single_hop"
+}
+
+{
+    "id": "q002",
+    "question": "How many of the Fortune 100 companies use the same automated candidate screener?",
+    "expected_answer": "More than 30% of the Fortune 100 companies use this screener.",
+    "source_doc": "Creel_Helman_2022.pdf",
+    "source_page": 1,
+    "gold_chunk": "Many companies and state agencies rush to the same private providers: over one-third of the Fortune 100 companies use the same automated candidate screener",
+    "type": "single_hop"
+}
+
+{
+    "id": "q003",
+    "question": "How does this article approach the joint problems of multiplicity and systematicity?",
+    "expected_answer": "The paper used the way described by Grgic-Hlaca et al. to deal with these issues. By introducing randomness to the classifier: creating a diverse set of classifier and randomly select one from the set for each different decision",
+    "source_doc": "Creel_Helman_2022.pdf",
+    "source_page": 15,
+    "gold_chunk": "One approach to the joint problems of multiplicity and systematicity is to intentionally introduce randomness to the classifier.",
+    "type": "single_hop"
+}
+
+{
+    "id": "q004",
+    "question": "Why is a single misclassified job applicant not a problem according to the authors, but it becomes one once the same algorithm is used across many employers?",
+    "expected_answer": "One employer with a flawed algorithm only disadvantages a candidate at that one employer, which the authors don't consider morally troubling as long as the algorithm serves that employer's own interests. Once the same algorithm is used by many employers, the same person is systematically excluded from a broad range of opportunities, producing an 'algorithmic leviathan' — the harm lies in the systematicity of the exclusion, not the arbitrariness itself.",
+    "source_doc": "Creel_Helman_2022.pdf",
+    "source_page": [6, 12],
+    "gold_chunk": [
+        "Rather than one employer with a screening tool that does a poor job of identifying good employees",
+        "This exclusion from multiple opportunities is in itself of moral concern"
+    ],
+    "type": "multi_hop"
+}
+
+{
+    "id": "q005",
+    "question": "What is the F1 score of the OOD classifier?",
+    "expected_answer": "The F1 score is around 0.45",
+    "source_doc": "fooling_shap.pdf",
+    "source_page": 6,
+    "gold_chunk": "SHAP, on the other hand, starts responding to the attacks with a less accurate OOD classifier (F1 score \u223c 0.45)",
+    "type": "single_hop"
+}
+
+{
+    "id": "q006",
+    "question": "What was the training and test split for this experiment?",
+    "expected_answer": "The split is 90% for training and 10% for the test set.",
+    "source_doc": "fooling_shap.pdf",
+    "source_page": 4,
+    "gold_chunk": "We randomly split all the datasets into training (90%) and test (10%) sets.",
+    "type": "single_hop"
+}
+
+{
+    "id": "q007",
+    "question": "How do LIME and SHAP estimate the feature attribution on the prediction?",
+    "expected_answer": "Both LIME and SHAP capture the individual contribution of a feature on the prediction of a black-boxed model. This is done by creating an interpretable model that approximate the behavior of the black box, while still achieving lower complexity and staying interpretable",
+    "source_doc": "fooling_shap.pdf",
+    "source_page": 2,
+    "gold_chunk": "LIME and SHAP estimate feature attributions on individual instances, which capture the contribution of each feature on the black box prediction",
+    "type": "single_hop"
+}
+
+{
+    "id": "q008",
+    "question": "How many tree estimators does the OOD classifier have?",
+    "expected_answer": "It is the standard implementation of sklearn of a random forest, which are 100 trees.",
+    "source_doc": "fooling_shap.pdf",
+    "source_page": 4,
+    "gold_chunk": "We use the standard sklearn implementation of a random forest with 100 tree estimators as our OOD classifier.",
+    "type": "single_hop"
+}
+
+{
+    "id": "q009",
+    "question": "How much does LIME's attack success change when only one uncorrelated feature is used versus two, for the German Credit dataset?",
+    "expected_answer": "With one uncorrelated feature, LIME's attack shifts feature importance away from the sensitive feature (gender/Loan Rate % Income) in 91% of held-out points for German. The text doesn't give a separate two-feature LIME number specifically for German credit.",
+    "source_doc": "fooling_shap.pdf",
+    "source_page": 4,
+    "gold_chunk": "and to the Loan % Income feature in 91% for German (Figure 4 -\nmiddle)",
+    "type": "single_hop"
+}
+
+{
+    "id": "q010",
+    "question": "What was the exact prison sentence length distribution used to construct the COMPAS dataset's risk labels?",
+    "expected_answer": null,
+    "source_doc": null,
+    "source_page": null,
+    "gold_chunk": null,
+    "type": "unanswerable"
+}
+
+{
+    "id": "q011",
+    "question": "Why does the adversarial classifier struggle more against SHAP than against LIME, and how does this connect to the finding about OOD classifier accuracy?",
+    "expected_answer": "SHAP is harder to fool because of its local accuracy property, which forces feature attributions to sum to the difference between a prediction and the average background prediction — this spreads importance across several features instead of letting it hide on just one, so the sensitive feature keeps surfacing (67-71% success with two uncorrelated features, versus 100% for LIME). This connects to the OOD classifier finding: SHAP starts responding to weaker OOD classifiers (F1 ~0.45) but needs a very accurate one to fully hide the bias, while LIME stays vulnerable to the bias feature until the OOD classifier crosses F1 ~0.8 and then becomes highly exploitable.",
+    "source_doc": "fooling_shap.pdf",
+    "source_page": [4, 5],
+    "gold_chunk": [
+        "This is due to SHAP\u2019s local accuracy property\nthat ensures that feature attributions must add up to the difference between a given prediction and the average prediction for\nthe background distribution",
+        "SHAP, on the other hand, starts responding to the attacks with a\nless accurate OOD classifier (F1 score \u223c 0.45), however, the effect is\nmore gradual; it needs a very accurate OOD classifier to completely\nhide the bias"
+    ],
+    "type": "multi_hop"
+}
+
+{
+    "id": "q012",
+    "question": "How does the paper's PCA observation about perturbed data points relate to why the attack works at all?",
+    "expected_answer": "The PCA visualization shows that perturbed instances (generated by LIME-style noise) are distributed very differently from real instances in the COMPAS data, even in a low-dimensional projection. This means it's easy to build a classifier (the OOD detector) that tells perturbed points apart from real ones. The attack exploits exactly this: it behaves like the biased classifier on real data, but switches to an unbiased-looking classifier on perturbed points, so LIME and SHAP -- which build their explanations mainly from perturbed points -- only ever see the innocuous behavior.",
+    "source_doc": "fooling_shap.pdf",
+    "source_page": 2,
+    "gold_chunk": [
+        "the synthetic data points generated\nfrom input perturbations are distributed significantly differently\nfrom the instances in the input data",
+        "an adversary\ncan create an adversarial classifier (scaffolding) that behaves like\nthe original classifier"
+    ],
+    "type": "multi_hop"
+}
+
+{
+    "id": "q013",
+    "question": "How many total citations did the article receive in its first year after publication?",
+    "expected_answer": null,
+    "source_doc": null,
+    "source_page": null,
+    "gold_chunk": null,
+    "type": "unanswerable"
+}
+
+{
+    "id": "q014",
+    "question": "In relation to COMPAS uses, how much more likely are black defendants to be falsely labelled as future criminals than white defendants?",
+    "expected_answer": "An analysis of ProPublica showed that black defendants were two times more likely to be falsely labelled as a future criminal. Thereby white defendants were often falsely labelled as low risk, at a higher rate than black defendants",
+    "source_doc": "algorithms_value_free.pdf",
+    "source_page": 20,
+    "gold_chunk": "However, a 2016 exposé by ProPublica revealed that in an analysis of over seven thousand compas uses,",
+    "type": "single_hop"
+}
+
+{
+    "id": "q015",
+    "question": "What is a common defense to the value-free ideal?",
+    "expected_answer": "The common defense concedes part of the argument from inductive risk: it accepts that accepting or rejecting a hypothesis requires appealing to ethical values. But its response is that scientists should therefore never accept or reject hypotheses at all — they should only assign probabilities to hypotheses relative to a fixed set of evidence. Applied to COMPAS, this means the tool's role is only to output a confidence/risk score, not to make a determinate prediction. Under Northpointe's AIPIE model (Assessment, Interpretation, Plan, Implement, Evaluate), COMPAS operates only at the Assessment step; the actual predictive judgment — and the inductive risk that comes with it — falls to judges in the later interpretation, planning, and implementation steps, not to the tool itself.",
+    "source_doc": "algorithms_value_free.pdf",
+    "source_page": 23,
+    "gold_chunk": "A popular defense of the value-free ideal in science begins by conceding part of the argument from inductive risk.",
+    "type": "single_hop"
+}
+
+// 3 null nog en 2 synthese 
+
+{
+    "id": "q016",
+    "question": "How did the value-free ideal come about?",
+    "expected_answer": "The value-free ideal originates from \"Dragnet objectivity\" — the folk view that scientists should judge hypotheses on \"just the facts,\" free of personal values (named after Sgt. Joe Friday's catchphrase from the 1950s-60s show Dragnet). The text argues this model is impossible: raw data alone always underdetermines which conclusion to draw (the problem of underdetermination of theory by evidence), which traces back to Hume's Problem of Induction — the fact that there's no justification for why past instances should support predictions about unknown instances. Since induction can't work on data alone, science (and machine learning) unavoidably requires non-evidential assumptions (\"canons of inductive inference,\" elsewhere called \"biases\") to narrow the hypothesis space. Hume's own answer was that assuming nature is uniform is simply a natural human instinct.",
+    "source_doc": "algorithms_value_free.pdf",
+    "source_page": [4, 5],
+    "gold_chunk": "This is a form of objectivity that Antony (2001, 2006, 2016) calls",
+    "type": "single_hop"
+  }
+
+{
+    "id": "q017",
+    "question": "What survey question exactly did the Pew Research Center ask its 2018 respondents about algorithmic decision-making?",
+    "expected_answer": null,
+    "source_doc": null,
+    "source_page": null,
+    "gold_chunk": null,
+    "type": "unanswerable"
+  }
+
+{
+    "id": "q018",
+    "question": "In what year did Gabbrielle Johnson complete her PhD?",
+    "expected_answer": null,
+    "source_doc": null,
+    "source_page": null,
+    "gold_chunk": null,
+    "type": "unanswerable"
+  }
+
+{
+    "id": "q019",
+    "question": "How does Rudner's seat-belt/pant-belt example connect to the machine learning case of the image recognition program a few paragraphs later?",
+    "expected_answer": "Rudner's seat belt vs. pant belt buckle example shows that the same risk of a defective design matters far more in one context (seat belts, where failure is dangerous) than another (pant belts, trivial failure) — so the confidence threshold for accepting an engineering hypothesis must be set by ethical values, not fixed in advance. The paper then applies this directly to machine learning: an image-recognition program distinguishing human from non-human shapes needs a much higher accuracy threshold if it triggers a safety-relevant system than if it merely triggers office lights. Both examples make the same point — the acceptable level of inductive risk depends on the ethical stakes of getting it wrong, so setting that threshold is itself a value-laden decision, whether for a scientist's hypothesis or a machine learning model's classification.",
+    "source_doc": "1785266102001_algorithms_value_free.docx",
+    "source_page": [18, 19],
+    "gold_chunk": [
+      "Imagine that in one case, engineers are responsible\nfor producing seat belt buckles, while in another scenario, engineers are\nresponsible for producing pant belt buckles",
+      "For example, imagine\nthat you are tasked with building an image recognition program to distinguish\nhuman shapes from non-human shapes. The level of inaccuracy you should\ntolerate will depend on the use to which your algorithm will be put."
+    ],
+    "type": "multi_hop"
+  }
+
+{
+    "id": "q020",
+    "question": "What is the relation between personal AIs and extending your mind?",
+    "expected_answer": "The text frames personal AIs (like the GENIUS system from VERSES) as a form of extended mind: over time these systems learn a person's specific needs, interests, and choices, and eventually come to feel like \"borderline-you\" -- reliable, always-running, implicitly trusted components rather than external tools. Losing or deleting one would feel like a minor stroke, not like losing a gadget; the author says you'd still \"use\" such a system, but only in the same attenuated sense that you use your own hippocampus or frontal lobe. This connects to the extended-mind framing the author develops earlier: if you understand yourself as a bio-technologically distributed self rather than identifying your mind purely with your biological brain, then offloading cognitive work onto a personal AI isn't a loss of capacity but a redistribution of it -- \"the careful husbanding of our own on-board cognitive capital.\" On this view, personal AIs become part of \"the new hybrid you,\" and the real questions shift from \"am I losing brain function?\" to practical ones about reliability -- is the AI's storage or judgment fragile, corrupt, or untrustworthy for this particular task.",
+    "source_doc": "clark_2025.pdf",
+    "source_page": 3,
+    "gold_chunk": [
+      "You survive their\nloss or deletion, but much as you would a minor stroke.",
+      "But what if you were already best understood as an extended\nmind, a bio-technologically distributed self?"
+    ],
+    "type": "multi_hop"
+  }
+
+
+{
+    "id": "q021",
+    "question": "What is GENIUS, according to the text?",
+    "expected_answer": "GENIUS is a personal AI system from VERSES, billed as a next-generation personal AI that learns from the user in multiple ways and across multiple platforms, offering highly-tailored suggestions and recommendations.",
+    "source_doc": "clark_2025.pdf",
+    "source_page": 3,
+    "gold_chunk": "One example is the GENIUS system\nfrom VERSES. Billed as a next-generation personal AI, the system learns (in multiple ways and across multiple platforms) from\nthe user and offers highly-tailored suggestions and recommendations.",
+    "type": "single_hop"
+  }
+
+
+{
+    "id": "q022",
+    "question": "What tool did Google DeepMind researchers use to solve a famous mathematical puzzle with an LLM?",
+    "expected_answer": "They used a tool called FunSearch (short for Function Space Search), which rejects useless LLM suggestions, spots promising ones, and uses those to repeatedly re-prompt the LLM until the solution was found.",
+    "source_doc": "clark_2025.pdf",
+    "source_page": 2,
+    "gold_chunk": "Instead, it was gradually\nushered into the world courtesy of a new tool called FunSearch (short\nfor Function Space Search) that is expert at rejecting useless suggestions",
+    "type": "single_hop"
+  }
+
+
+{
+    "id": "q023",
+    "question": "Who created Digital Andy and what technique does it use?",
+    "expected_answer": "Digital Andy was built by computer scientist Paul Smart. It applies Retrieval-Augmented Generation to the LLM that drives a version of ChatGPT, augmenting the base model with a database of Clark's own recent work.",
+    "source_doc": "clark_2025.pdf",
+    "source_page": 2,
+    "gold_chunk": "Built by the computer scientist Paul Smart,\nDigital Andy applies a technique called Retrieval-Augmented\nGeneration to the large language model (LLM) that drives a version of ChatGPT.",
+    "type": "single_hop"
+  }
+
+{
+    "id": "q024",
+    "question": "What ancient text does Clark cite as an early example of fear that new tools would harm human memory?",
+    "expected_answer": "Plato's Phaedrus, written around 370BC, which contains a clear statement of the fear that inventions like reading and writing would have catastrophic effects on human memory.",
+    "source_doc": "clark_2025.pdf",
+    "source_page": 1,
+    "gold_chunk": "In Plato\u2019s\nPhaedrus, written around 370BC, we find a clear statement of the fear\nthat new-fangled inventions such as reading and writing will have\ncatastrophic effects on human memory.",
+    "type": "single_hop"
+  }
+
+{
+    "id": "q025",
+    "question": "How much funding in euros did Andy Clark receive from the European Research Council for this work?",
+    "expected_answer": null,
+    "source_doc": null,
+    "source_page": null,
+    "gold_chunk": null,
+    "type": "unanswerable"
+  }
+
