@@ -17,7 +17,7 @@ def store_embeddings(file, collection):
         ids = ids
         documents = chunks
         embeddings = vectors
-        metadata = metadata
+        metadatas = metadata
     )
 
 

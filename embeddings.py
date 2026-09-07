@@ -2,6 +2,7 @@ from pdf_utiliz import extract_pdf, chunk_text
 from dotenv import load_dotenv
 import os
 from openai import OpenAI
+EMBEDDING_MODEL = "text-embedding-3-small"
 
 def embed_chunks(file):
     load_dotenv()
