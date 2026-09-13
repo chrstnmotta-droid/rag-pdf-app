@@ -1,5 +1,4 @@
 from datetime import datetime
-from embeddings import embed_chunks
 import chromadb
 
 client = chromadb.PersistentClient()
@@ -8,16 +7,15 @@ collection = client.get_or_create_collection(
     metadata={"description": "Chunked and embedded text from uploaded PDFs for RAG retrieval"}
 )
 
-def store_embeddings(file, collection):
-    chunks, vectors = embed_chunks(file)
-    ids = [f"{file}_{i}" for i in range(len(chunks))]
-    metadata = [{"source": file} for _ in chunks]
-
-    collection.add(
-        ids = ids
-        documents = chunks
-        embeddings = vectors
-        metadatas = metadata
-    )
+def store_embeddings(embeddings_by_doc: dict, chunks_by_doc: dict, collection):
+    for pdf, chunks in chunks_by_doc.items():
+        ids = [f"{pdf}_{i}" for i in range(len(chunks))]
+        metadata = [{"source": pdf} for _ in chunks]
+        collection.add(
+            ids = ids,
+            documents = chunks,
+            embeddings = embeddings_by_doc[pdf],
+            metadatas = metadata
+        )
 
 

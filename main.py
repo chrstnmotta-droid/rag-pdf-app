@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
-from pdf_utiliz import chunk_text, extract_pdf
+from pdf_extract_chunking import extract_pdf
 app = FastAPI()
 
 @app.get("/hello/{name}") #Placeholder

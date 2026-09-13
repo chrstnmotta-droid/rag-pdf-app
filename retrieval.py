@@ -1,13 +1,11 @@
-# Plan Pseudocode: 
-# receive query as string -> 
-# embed query with OpenAI in the exact same way as the chunks ->
-#  use embedded query retrieve through chroma database top 5 chunks (vectors) based on cosine similarity (use doc quary and get chromadb)
 from vector_database import collection
+from dotenv import load_dotenv
+import os
+from openai import OpenAI
 
 def embed_query(query):
     load_dotenv()
     client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
-
     response = client.embeddings.create(
         input= query, model = "text-embedding-3-small"
         )

@@ -5,10 +5,8 @@ import json
 import os 
 import csv
 from embeddings import EMBEDDING_MODEL
-from pdf_utiliz import DEFAULT_CHUNK_SIZE, DEFAULT_OVERLAP
 
-
-def evaluation_top_5k():
+def evaluation_top_5k(method, chunk_size, overlap ):
     #Query + expected answer
     with open("golden_set.json") as f:
         golden_set = json.load(f)
@@ -39,14 +37,14 @@ def evaluation_top_5k():
         # Check positions and presence of ALL golden_chunks
         elif item["type"] == "multi_hop":
             # checks whether particular chunk is already found in top 5k
-            c_found = []
+            c_hit = []
             for i,v in enumerate(retrieved_chunks):
                 for c in gold_chunk:
-                    if c in v and c not in c_found:
+                    if c in v and c not in c_hit:
                         hits += 1
                         rank = i + 1
                         positions.append(rank)
-                        c_found.append(c)
+                        c_hit.append(c)
                         continue
                     else:
                         continue
@@ -64,6 +62,6 @@ def evaluation_top_5k():
     file_exists = os.path.exists("results.csv")
     with open("results.csv", mode ="a", newline= "") as f:
         if not file_exists:
-            csv.writer(f).writerow(["Embedding", "Chunk size", "Overlap", "Mrr", "Recall@K"])
-        csv.writer(f).writerow([EMBEDDING_MODEL, DEFAULT_CHUNK_SIZE, DEFAULT_OVERLAP, mrr, recall_at_k])
+            csv.writer(f).writerow(["Method", "Embedding Model", "Chunk size", "Overlap", "MRR", "Recall@K"])
+        csv.writer(f).writerow([method, EMBEDDING_MODEL, chunk_size, overlap, mrr, recall_at_k])
 
