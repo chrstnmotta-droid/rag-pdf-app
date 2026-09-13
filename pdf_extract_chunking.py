@@ -11,7 +11,7 @@ def extract_pdf(file):
     return pdf_text
 
 # Character_based chunking 
-def character_chunking(text: str, overlap: int, chunk_size: int):
+def character_chunking(text: str, chunk_size: int, overlap: int):
     chunks = []
     start = 0
     while start < len(text):

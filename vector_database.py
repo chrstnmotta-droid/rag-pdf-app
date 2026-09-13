@@ -1,7 +1,8 @@
 from datetime import datetime
 import chromadb
+from chromadb.config import Settings
 
-client = chromadb.PersistentClient()
+client = chromadb.PersistentClient(settings = Settings(allow_reset = True))
 collection = client.get_or_create_collection(
     name="file_chunks",
     metadata={"description": "Chunked and embedded text from uploaded PDFs for RAG retrieval"}

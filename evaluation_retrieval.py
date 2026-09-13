@@ -6,7 +6,7 @@ import os
 import csv
 from embeddings import EMBEDDING_MODEL
 
-def evaluation_top_5k(method, chunk_size, overlap ):
+def evaluation_top_5k(method: str, chunk_size: int, overlap: int ):
     #Query + expected answer
     with open("golden_set.json") as f:
         golden_set = json.load(f)
