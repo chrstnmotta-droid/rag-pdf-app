@@ -19,3 +19,8 @@ dependencies = [
 ]
 [tool.uv]
 constraint-dependencies = ["onnxruntime<1.24"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
