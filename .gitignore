@@ -8,4 +8,5 @@ __pycache__/
 .vscode/
 chroma
 results.csv
+divergence_test.py
 

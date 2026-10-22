@@ -5,6 +5,7 @@ import json
 import os 
 import csv
 from embeddings import EMBEDDING_MODEL
+from pdf_extract_chunking import normalize_text
 
 def evaluation_top_5k(method: str, chunk_size: int, overlap: int ):
     #Query + expected answer
@@ -27,6 +28,8 @@ def evaluation_top_5k(method: str, chunk_size: int, overlap: int ):
         # Check position and presence of golden_chunk 
         if item["type"] == "single_hop":
             for i,v in enumerate(retrieved_chunks):
+                # Normalize whitespace 
+                gold_chunk = normalize_text(gold_chunk)
                 if gold_chunk in v:
                     total_hits += 1 
                     rank = i + 1

@@ -8,10 +8,10 @@ extracted_text = {}
 for i in ["algorithms_value_free.pdf", "clark_2025.pdf", "Creel_Helman_2022.pdf", "fooling_shap.pdf"]:
     extracted_text[i] = pdf_extract_chunking.extract_pdf(i)
 
-for method in ["character", "sentence","token"]:
-    for chunk_size in [200, 400, 800, 1200]:
+for method in ["sentence","token","character"]:
+    for chunk_size in  [1200, 1600, 2000]:
         for overlap_pct in [0, 0.10, 0.20]:
-            overlap = chunk_size * overlap_pct
+            overlap = int(chunk_size * overlap_pct)
             chunked_by_doc = {}
             for pdf, text in extracted_text.items():
                 if method == "character":
