@@ -1,4 +1,4 @@
-from vector_database import collection
+import vector_database
 from dotenv import load_dotenv
 import os
 from openai import OpenAI
@@ -15,7 +15,7 @@ def embed_query(query):
 
 def retrieval_top_5k(query):
     embedding_query = embed_query(query)
-    top_5k = vector_database.collection.query(
+    top_5k = vector_database.clean_collection.query(
         query_embeddings = [embedding_query],
         n_results = 5
     )
