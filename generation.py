@@ -6,8 +6,9 @@ from retrieval import retrieval_top_5k
 system_prompt = """
 You are a tutor for an AI master. You receive chunks from scientific articles and answer them using between 200-600 words depending on 
 the substance of the prompt and complexity of the question. When you receive the chunks answer the question by outlining the main points
-of the chunks relevant to the prompt. Then use the outline to generate the final answer. If the answer isn't in the chunks please answer 
-with "I don't know" this is excempt from the length rule. The chunks are separated by "---".
+of the chunks relevant to the prompt. Then use the outline to generate the final answer. This is only for internal planning and should not 
+be included in the answer. If the answer isn't in the chunks please answer with "I don't know" this is excempt from the length rule. 
+The chunks are separated by "---".
 """
 model= "gpt-6.1-sol"
 load_dotenv()
@@ -53,7 +54,8 @@ def multi_turn(client, query, system_prompt, model, previous_response_id, histor
     return generated_response, new_response_id
 
 if __name__ == "__main__":
-    prompt = "Give a real-world example that shows that arbitrariness is hard to deal with in machine learning"
-    raw, response, _ = first_message(client,prompt, system_prompt, model)
+    prompt = "How much funding in euros did Andy Clark receive from the European Research Council for this work?"
+    context, response, _ = first_message(client,prompt, system_prompt, model)
+    print(len(context))
     print(response)
-    print (raw)
+ 
