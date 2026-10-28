@@ -30,7 +30,7 @@ def first_message(client, query, system_prompt, model):
     )
     generated_response = response.output_text
     response_id = response.id
-    return context_raw, generated_response, response_id
+    return generated_response, response_id
 
 def multi_turn(client, query, system_prompt, model, previous_response_id, history):
     condensation_turn = client.responses.create(
@@ -55,7 +55,6 @@ def multi_turn(client, query, system_prompt, model, previous_response_id, histor
 
 if __name__ == "__main__":
     prompt = "How much funding in euros did Andy Clark receive from the European Research Council for this work?"
-    context, response, _ = first_message(client,prompt, system_prompt, model)
-    print(len(context))
+    response, _ = first_message(client,prompt, system_prompt, model)
     print(response)
  
